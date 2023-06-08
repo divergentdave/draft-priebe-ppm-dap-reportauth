@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Report authentication and rate-limiting for PPM DAP</title>
+<title>Report authentication and rate limiting for PPM DAP</title>
 <meta content="Christian Priebe" name="author">
 <meta content="Linmao Song" name="author">
 <meta content="
@@ -1057,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">Report authentication and rate-limiting </td>
+<td class="center">Report authentication and rate limiting </td>
 <td class="right">June 2023</td>
 </tr></thead>
 <tfoot><tr>
@@ -1094,7 +1094,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Report authentication and rate-limiting for PPM DAP</h1>
+<h1 id="title">Report authentication and rate limiting for PPM DAP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes an upload extension to the Distributed
@@ -1314,7 +1314,7 @@ share, it validates the token by verifying the token signature using the
 public Token Key from the Issuer. It also verifies that the token nonce
 has not been seen for the current task to prevent double spending. Upon
 successful validation which proves to the Aggregator that the client has
-been authenticated and rate-limiting has been enforced, the Aggregator
+been authenticated and rate limiting has been enforced, the Aggregator
 can process the report share as outlined in <span>[<a href="#DAP" class="cite xref">DAP</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">This document does not specify the coordination between Aggregators and
 Issuers to configure the Issuer rate-limiting policy and to exchange the
@@ -1713,7 +1713,7 @@ client identities at token redemption time.<a href="#section-6.3-1" class="pilcr
 <p id="section-6.4-1">Issuers <span class="bcp14">MUST</span> periodically rotate the per-Origin Token Key and Issuer
 Origin Secret values as described in <span>[<a href="#RLT" class="cite xref">RLT</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-rate-limit-tokens-01#section-10.1" class="relref">Section 10.1</a></span> to prevent
 malicious clients from hoarding tokens across Issuer policy windows in
-order to bypass rate-limiting. While Aggregators must accommodate for
+order to bypass rate limiting. While Aggregators must accommodate for
 this key rotation and <span class="bcp14">SHOULD</span> accept tokens signed with the private key
 associated with Token Keys older than the most recent key, they <span class="bcp14">SHOULD</span>
 limit the time window during which such tokens are accepted.<a href="#section-6.4-1" class="pilcrow">¶</a></p>

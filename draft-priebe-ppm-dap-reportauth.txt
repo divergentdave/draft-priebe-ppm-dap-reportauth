@@ -8,7 +8,7 @@ Intended status: Informational                                Apple Inc.
 Expires: 10 December 2023                                    8 June 2023
 
 
-          Report authentication and rate-limiting for PPM DAP
+          Report authentication and rate limiting for PPM DAP
                  draft-priebe-ppm-dap-reportauth-latest
 
 Abstract
@@ -146,7 +146,7 @@ Table of Contents
    the public Token Key from the Issuer.  It also verifies that the
    token nonce has not been seen for the current task to prevent double
    spending.  Upon successful validation which proves to the Aggregator
-   that the client has been authenticated and rate-limiting has been
+   that the client has been authenticated and rate limiting has been
    enforced, the Aggregator can process the report share as outlined in
    [DAP].
 
@@ -462,7 +462,7 @@ Table of Contents
    Issuers MUST periodically rotate the per-Origin Token Key and Issuer
    Origin Secret values as described in [RLT], Section 10.1 to prevent
    malicious clients from hoarding tokens across Issuer policy windows
-   in order to bypass rate-limiting.  While Aggregators must accommodate
+   in order to bypass rate limiting.  While Aggregators must accommodate
    for this key rotation and SHOULD accept tokens signed with the
    private key associated with Token Keys older than the most recent
    key, they SHOULD limit the time window during which such tokens are
