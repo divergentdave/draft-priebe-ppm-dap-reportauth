@@ -1,0 +1,267 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-07-06T01:42:28.850775+00:00",
+  "repo": "cpriebe/draft-priebe-ppm-dap-reportauth",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJsOeD85oNeS7",
+      "title": "Chris P.: Picking tokens for reports",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/issues/1",
+      "state": "OPEN",
+      "author": "cjpatton",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> At the time of upload, the client MUST select one authentication token\r\nfor each of the Aggregators.\r\n\r\nMUST the token be the same for both report shares? If so, is there an enforcement mechanism?\r\n\r\n> The Client MUST only use a token once per\r\ntask. However, the client MAY re-use the token for a different task. If\r\nthe client has no unused authentication token left or the client has not\r\nobtained tokens for a participating Aggregator, it MUST abort the\r\nupload.\r\n\r\nWhat's the intent of the first \"MUST\"? Note that DAP allows Clients to potentially upload multiple reports for the same task. (Tasks can be comprised of multiple batches of reports, with an aggregate being computed for each batch.) To support this we'd need to allow the Client to use multiple tokens for the same task.\r\n\r\n",
+      "createdAt": "2023-06-08T17:30:29Z",
+      "updatedAt": "2023-06-14T21:12:30Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cjpatton",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Relatedly:\r\n\r\n> [Report ID MUST be computed from challenge] This allows\r\nAggregators to make sure each token is only used once per task\r\n\r\nWould it be more accurate to say: \"This allows Aggregators to make sure each token is used once\"?\r\n",
+          "createdAt": "2023-06-08T17:32:06Z",
+          "updatedAt": "2023-06-08T17:32:06Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Thanks, this should definitely be clearer.\r\n\r\n> MUST the token be the same for both report shares? If so, is there an enforcement mechanism?\r\n\r\nNo, the assumption is that they are different tokens, the reason being that we assume that different aggregators correspond to different origins/hostnames. If aggregators were to share a host/origin identity, the tokens could also be shared but I'm not sure if we want to get into that within this spec?\r\n\r\n> Note that DAP allows Clients to potentially upload multiple reports for the same task. (Tasks can be comprised of multiple batches of reports, with an aggregate being computed for each batch.) To support this we'd need to allow the Client to use multiple tokens for the same task.\r\n\r\nYes, this spec is definitely meant to support that. The rate limiting is enforced per task, so the upper bound for how many reports a client is allowed to upload for a task (within the Issuer policy window) is the rate limit configured with the Issuer. We should probably call this out more clearly somewhere.",
+          "createdAt": "2023-06-08T18:50:22Z",
+          "updatedAt": "2023-06-08T18:50:38Z"
+        },
+        {
+          "author": "cjpatton",
+          "authorAssociation": "COLLABORATOR",
+          "body": ">  If aggregators were to share a host/origin identity, the tokens could also be shared but I'm not sure if we want to get into that within this spec?\r\n\r\nAgreed :)",
+          "createdAt": "2023-06-08T19:44:29Z",
+          "updatedAt": "2023-06-08T19:44:29Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Made some small adjustments to this section with https://github.com/cpriebe/draft-priebe-ppm-dap-ratelimited/commit/33bc7cb52da4189cc9b3f370e2a8d16ce782492e.",
+          "createdAt": "2023-06-14T21:12:30Z",
+          "updatedAt": "2023-06-14T21:12:30Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJsOeD85oNf77",
+      "title": "Chris P: Threat model question",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/issues/2",
+      "state": "OPEN",
+      "author": "cjpatton",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> It is important to point out that the threat\r\nmodel for this extension deviates from that assumption in that it is\r\nassumed that Attester and a subset of Aggregators, and Issuer and a\r\nsubset of Aggregators might be run by the same entity.\r\n\r\nAs a defense against Sybil attacks, isn't it required that the Issuer is non-colluding with both Aggregators? If, say, the Helper runs the Issuer, can't it do a Sybil attack?",
+      "createdAt": "2023-06-08T17:36:50Z",
+      "updatedAt": "2023-06-14T21:39:48Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "We should clarify this better. What this doesn't allow is a de-anonymisation attack as neither the Issuer nor the Helper should ever see any client identities.\r\n\r\nThe other thing to say here is that the Issuer and Helper colluding shouldn't be worse than just the Issuer being malicious/compromised. The Issuer can issue as many tokens as it wishes to mount a Sybil attack.",
+          "createdAt": "2023-06-08T18:10:43Z",
+          "updatedAt": "2023-06-08T18:10:43Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "I haven't found a good way of incorporating this feedback yet. I think the key takeaway here is that Issuer and Helper colluding isn't worse than the Issuer being malicious by itself which I think is covered in the \"Collusion between Attester and Issuer\" section.",
+          "createdAt": "2023-06-14T21:15:56Z",
+          "updatedAt": "2023-06-14T21:15:56Z"
+        },
+        {
+          "author": "cjpatton",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Right, so the Issuer need to be trusted in order to ensure mitigation of Sybil attacks? (Certainly a malicious Issuer can't make privacy worse.) If this is indeed the intent, then I think it's fine.",
+          "createdAt": "2023-06-14T21:39:48Z",
+          "updatedAt": "2023-06-14T21:39:48Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJsOeD85oNhvV",
+      "title": "Chris P: Name \"ReportAuth\"",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/issues/3",
+      "state": "OPEN",
+      "author": "cjpatton",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "(This might be overly pedantic :/) I wonder if \"report authentication\" is the right thing to describe this as. There are a number of ways to define \"authentication\", and the property being provided here is, arguably, more specific.\r\n\r\nI like the emphasis on Sybil attacks intro, and an RLT as the concrete mechanism to mitigate them. What about \"report rate limiting\" or \"rate-limited reporting\"? Something like \"RatedLimitedReport\"?",
+      "createdAt": "2023-06-08T17:41:23Z",
+      "updatedAt": "2023-07-05T20:19:39Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Thanks for the quick feedback!\r\n\r\nNot pedantic at all. I have been struggling with the name as well, see the todo on the \"authentication token\" term. To be fair, Linmao started the draft as draft-priebe-ppm-rate-limited I think? Effective rate limiting does imply authentication anyway (which is done by the Attester not the Aggregator in this proposal).\r\n\r\nSo, let's go back to draft-priebe-ppm-dap-rate-limited and find a better title. Maybe \"Report rate-limiting for PPM DAP\" is sufficient?",
+          "createdAt": "2023-06-08T18:03:51Z",
+          "updatedAt": "2023-06-20T15:33:50Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Addressed now with https://github.com/cpriebe/draft-priebe-ppm-dap-ratelimited/commit/c35f318dbcc9034643a5984877f67e3cdeb50666.",
+          "createdAt": "2023-06-09T10:48:18Z",
+          "updatedAt": "2023-06-09T13:57:37Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "With the generalisation to any type of Privacy Pass tokens I am going back to ReportAuth as a name for the extension. I hope that does fit better now that we are not necessarily restricting ourselves to rate-limited tokens.",
+          "createdAt": "2023-07-05T20:19:39Z",
+          "updatedAt": "2023-07-05T20:19:39Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOJsOeD85oNhyL",
+      "title": "Chris P.: editorial: ",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/issues/4",
+      "state": "CLOSED",
+      "author": "cjpatton",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- [x] intro: \"fulfil\"\r\n- [x] fig-interaction-overview: hard to read without the ladder lines\r\n- [x] fig-reportauth-extension: \"Other Extensions\" sounds like there might be somewhere else where extensions live. For the moment, all extensions are per-Aggregator and live in the PlaintextInputShare: https://www.ietf.org/archive/id/draft-ietf-ppm-dap-04.html#section-4.3.2-9j\r\n- [x] aggregator-behavior: s/the/they/\r\n",
+      "createdAt": "2023-06-08T17:41:29Z",
+      "updatedAt": "2023-06-09T18:57:15Z",
+      "closedAt": "2023-06-09T18:57:15Z",
+      "comments": [
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Thanks a lot! That all makes sense. \"Other extensions\" are meant to be shown to be within the PlainTextInputShare here as well but maybe we can find a better way of structuring this to make that clear.",
+          "createdAt": "2023-06-08T18:05:36Z",
+          "updatedAt": "2023-06-08T18:05:36Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "I believe I have addressed all your comments on this. I added ladder lines and made a few other changes to the interaction overview to make it more readable. I also add extra nesting for `Extensions` within the `PlainTextInputShare` in the  report structure overview.\r\n\r\nKeeping this open in case you'd like to verify first.",
+          "createdAt": "2023-06-09T09:35:35Z",
+          "updatedAt": "2023-06-09T09:35:35Z"
+        },
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "For reference: https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/commit/6c59a94a8418df0d491c4271c4c0c167d915ba45",
+          "createdAt": "2023-06-09T10:10:33Z",
+          "updatedAt": "2023-06-09T10:10:33Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOJsOeD85pP4mC",
+      "title": "Generalize to Privacy Pass tokens",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/issues/5",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There's no reason this needs to be constrained to rate-limited tokens. Any Privacy Pass token would work with the extension as specified. ",
+      "createdAt": "2023-06-20T16:43:31Z",
+      "updatedAt": "2023-07-04T12:28:52Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "cpriebe",
+          "authorAssociation": "OWNER",
+          "body": "Very good point. The primary reason why we had focused on rate-limited tokens was the fact that this extension is motivated by the goal to protect against Sybil Attacks by malicious Clients. However, standard Privacy Pass tokens might be sufficient if the threat model for a given DAP deployment assumes that authenticated clients are assumed to be trusted not to launch such attacks. We can leave it up to the owners of DAP deployments to decide on their threat model.\r\n\r\nI made an attempt to address this here: https://github.com/cpriebe/draft-priebe-ppm-dap-ratelimited/pull/6",
+          "createdAt": "2023-07-04T12:28:52Z",
+          "updatedAt": "2023-07-04T12:28:52Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 6,
+      "id": "PR_kwDOJsOeD85UnK9B",
+      "title": "Generalize to Privacy Pass tokens",
+      "url": "https://github.com/cpriebe/draft-priebe-ppm-dap-reportauth/pull/6",
+      "state": "MERGED",
+      "author": "cpriebe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "These changes address https://github.com/cpriebe/draft-priebe-ppm-dap-ratelimited/issues/5 to not limit this extension to Rate-Limited Privacy Pass token as the extension itself can support any Privacy Pass tokens.\r\n\r\nWe still do mention rate-limited tokens explicitly in the spec though as they might be required depending on the threat model. It's left up to the owner of a DAP deployment though to decide on which issuance protocol and with that which token type to use.",
+      "createdAt": "2023-07-04T12:14:18Z",
+      "updatedAt": "2023-07-05T20:44:46Z",
+      "baseRepository": "cpriebe/draft-priebe-ppm-dap-reportauth",
+      "baseRefName": "main",
+      "baseRefOid": "680b5299dc4d1b049788190bd031c41fe73da668",
+      "headRepository": "cpriebe/draft-priebe-ppm-dap-reportauth",
+      "headRefName": "cp/support-for-generic-privacy-pass-tokens",
+      "headRefOid": "27b931b2a6051446c31546dd6b51f389f624b72f",
+      "closedAt": "2023-07-05T20:44:46Z",
+      "mergedAt": "2023-07-05T20:44:46Z",
+      "mergedBy": "cpriebe",
+      "mergeCommit": {
+        "oid": "538dea8d3f812f920f183f3de30b2f7e589ad117"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
